@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1553419553 source:c:\users\u1\documents\github\grafica\practica2\main.cpp
+	<windows.h>
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+	<GL/glut.h>
+
+976692172 c:\glut\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+

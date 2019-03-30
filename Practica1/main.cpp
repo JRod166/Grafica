@@ -21,7 +21,7 @@
 using namespace std;
 
 bool exc1,exc2,exc3,exc4,exc5;
-int hCenter=0, vCenter=0, edgeSize=10, reductionPercentage= 30, quantity=5, angle=15;
+int hCenter=0, vCenter=0, edgeSize=10, reductionPercentage= 30, quantity=4, angle=45;
 
 
 void printInstructions()
