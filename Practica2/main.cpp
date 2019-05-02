@@ -1,9 +1,10 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+
+//g++ -o main main.cpp -lGL -lGLU -lglut -lpthread -lfreeimage
 
 #include <GL/glut.h>
 using namespace std;
@@ -18,8 +19,8 @@ using namespace std;
 #define KEY_2 50
 
 
-int time=0;
-int timebase=0;
+int timep=0;
+int timebasep=0;
 
 void init_scene();
 void render_scene();
@@ -99,9 +100,9 @@ bool exc1=0,exc2=0;
 
 GLvoid window_display()
 {
-    time = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
-    float dt = float(time -timebase)/1000.0;// delta time
-    timebase = time;
+    timep = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
+    float dt = float(timep -timebasep)/1000.0;// delta time
+    timebasep = timep;
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

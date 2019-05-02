@@ -1,9 +1,10 @@
 #define GLUT_DISABLE_ATEXIT_HACK
 
-#include <windows.h>
 #include <math.h>
 #include <GL/glut.h>
 #include <iostream>
+
+//g++ -o main main.cpp -lGL -lGLU -lglut -lpthread -lfreeimage
 
 #define KEY_ESC 27
 #define KEY_1 49
@@ -46,7 +47,7 @@ void printInstructions()
     cout<<" Tamano de arista/radio: "<<edgeSize<<endl;
     cout<<" Porcentaje de reduccion: " <<reductionPercentage<<"%"<<endl;
     cout<<" Cantidad: "<<quantity<<endl;
-    cout<<" Angulo de inclinacion: "<<angle<<"°"<<endl;
+    cout<<" Angulo de inclinacion: "<<angle<<"ï¿½"<<endl;
 }
 
 void square(int x, int y, int tam)
@@ -170,7 +171,7 @@ void init_GL(void) {
 	glLoadIdentity();
 }
 
-//en el caso que la ventana cambie de tamaño
+//en el caso que la ventana cambie de tamaï¿½o
 GLvoid window_redraw(GLsizei width, GLsizei height) {
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
@@ -264,7 +265,7 @@ int main(int argc, char** argv) {
 	printInstructions();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(600, 600); //tamaño de la ventana
+	glutInitWindowSize(600, 600); //tamaï¿½o de la ventana
 	glutInitWindowPosition(500, 100); //posicion de la ventana
 	glutCreateWindow("TP1 OpenGL : hello_world_OpenGL"); //titulo de la ventana
 
