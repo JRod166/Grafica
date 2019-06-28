@@ -61,32 +61,7 @@ int timepbase=0;
 float dt;
 
 ///Variables sistema solar
-double velGlobal = 5;
-double velGlobalGiro = 5;
-///sol
-double tamSol = 4;
-double velGiroSol = velGlobalGiro;
-
-///tierra
-double posTierraX;
-double posTierraZ;
-double tamTierra = 2;
-double distDelSolTirra = 10;
-double velT = velGlobal;
-double velGiroTierra = 3 * velGiroSol;
-
-///luna
-double tamLuna = 1;
-double distATierraLuna = 4;
-double velL = 2 * velGlobal;
-double velGiroLuna = 1.5 * velGiroSol;
-
-///marte
-double tamMarte = 1.5;
-double distDelSolMarte = 18;
-double velM = velT;
-double velGiroMarte = velGiroSol;
-
+float posx=-8.0f, desp=0.01f, giroVel=0.1f, solarAngle=0.0f, solarRot=0.0f;
 
 //dibuja un simple gizmo
 void displayGizmo()
@@ -175,7 +150,7 @@ int main(int argc, char **argv)
 
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("TP 2 : Transformaciones");
+	glutCreateWindow("TP 3 : Rotacion sistema solar");
 
 
 	initGL();
@@ -223,186 +198,42 @@ GLvoid initGL()
 	glClearColor(RED, GREEN, BLUE, ALPHA);
 }
 
-void displayTeapot(){
-    glColor3f(1.0,1.0,1.0);
-	glutSolidTeapot(2);
-
-}
-
-
-void displaySphere(){
-    glColor3f(0.988,0.88,0.44);
-    glutSolidSphere(1,100,100);
-}
-
-void displayTorus(){
-    glColor3f(1.0,1.0,1.0);
-    glutSolidTorus(0.5,1,100,100);
-}
-
-void displayCubo(){
-    glColor3f(1.0,1.0,1.0);
-    glutSolidCube(2);
-}
-
-void rotarCubo(){
-    glPushMatrix();
-    glRotated(angle,1.0f,0.0f,0.0f);
-    glTranslated(0,6,0);
-    displayCubo();
-    glPopMatrix();
-}
-
-void rotarTorus(){
-    glRotated(angle*3,0.0f,1.0f,0.0f);
-    glTranslated(6,0,0);
-    displayTorus();
-}
-
-void rotarTeapot(){
-
-    double radio = 10;
-    glPushMatrix();
-    ///
-
-    double x2 = radio*sin(alpha*3.1416/180);
-    double y2 = radio*cos(alpha*3.1416/180);
-    //glRotated(angle,0.0f,0.0f,1.0f);
-    glTranslated(x2,y2,0);
-    alpha = alpha + 6 * angulo * dt;
-    ///
-    displayTeapot();
-    angle = angle + 100 * dt;
-    rotarTorus();
-    glPopMatrix();
-
-
-}
-
-void moveTeapot(){
-   glPushMatrix();
-   glTranslatef(posXG,0,0);
-   //posXG = posXG +0.01;
-   rotarTeapot();
-   rotarCubo();
-   displaySphere();
-   if(Sentido == 0 ){
-        if(posXG < MAX){
-            posXG = posXG +10*dt;
-        }else{
-            Sentido = 1;
-        }
-   }else{
-        if(posXG > MIN){
-            posXG = posXG - 10*dt;
-        }else{
-            Sentido = 0;
-        }
-   }
-
-
-   glPopMatrix();
-
-}
-
-
-void displaySol(){
-    glColor3f(0.988,0.88,0.44);
-    glutSolidSphere(tamSol,8,8);
-}
-
-void displayTierra(){
-    glColor3f(0.372,0.692,0.904);
-    glutSolidSphere(tamTierra,8,8);
-}
-
-void displayLuna(){
-    glColor3f(0.764,0.804,0.808);
-    glutSolidSphere(tamLuna,8,8);
-}
-
-void displayMarte(){
-    glColor3f(0.764,0,0);
-    glutSolidSphere(tamMarte,8,8);
-}
-
-void sobreEjeSol(){
-    glPushMatrix();
-    glRotatef(angle*velGiroSol,0.0,1.0,0.0);
-    displaySol();
-    glPopMatrix();
-}
-
-void sobreEjeTierra(){
-    glPushMatrix();
-    glRotatef(angle*velGiroTierra,0.0,1.0,0.0);
-    displayTierra();
-    glPopMatrix();
-}
-
-void sobreEjeLuna(){
-    glPushMatrix();
-    glRotatef(angle*velGiroLuna,0.0,1.0,0.0);
-    displayLuna();
-    glPopMatrix();
-}
-
-void sobreEjeMarte(){
-    glPushMatrix();
-    glRotatef(angle*velGiroMarte,0.0,1.0,0.0);
-    displayMarte();
-    glPopMatrix();
-}
-
-void rotarMarte(){
-    glPushMatrix();
-
-    double x2 = distDelSolMarte*sin(alpha*3.1416/180);
-    double y2 = distDelSolMarte*cos(alpha*3.1416/180);
-    //glRotated(angle,0.0f,0.0f,1.0f);
-    glTranslated(x2,0,y2);
-    //alpha = alpha + velM* angulo * dt;
-
-    //glRotatef(angle*velM,0.0f,1.0f,0.0f);
-    //glTranslated(distDelSolMarte,0,0);
-    sobreEjeMarte();
-    glPopMatrix();
-}
-
-void rotarLuna(){
-    glRotated(angle*velL,0.0f,1.0f,0.0f);
-    glTranslated(distATierraLuna,0,0);
-    sobreEjeLuna();
-}
-
-void rotarTierra(){
-
-    glPushMatrix();
-
-    posTierraX = distDelSolTirra*sin(alpha*3.1416/180);
-    posTierraZ = distDelSolTirra*cos(alpha*3.1416/180);
-    //glRotated(angle,0.0f,0.0f,1.0f);
-    glTranslated(posTierraX,0,posTierraZ);
-    alpha = alpha + velT* angulo * dt;
-
-    //glRotated(angle*velT,0.0f,1.0f,0.0f);
-    //glTranslated(distDelSolTirra,0,0);
-
-    sobreEjeTierra();
-    angle = angle + velT * dt;
-    rotarLuna();
-    glPopMatrix();
-
-
-}
-
-
 
 void DisplaySistemaSolar(){
 
-    rotarTierra();
-    rotarMarte();
-    sobreEjeSol();
+	glPushMatrix();
+			glColor3f(1.0,1.0,0);   ///Yellow
+			glPushMatrix(); ///Sun Matrix
+					glRotatef(solarRot,0,1,0);
+					glutSolidSphere(4,8,8); ///Sun
+			glPopMatrix();
+
+			glPushMatrix(); ///Earth and moon matrix
+					glRotatef(solarAngle,0,1,0);
+					glTranslatef(10,0,0);
+					glPushMatrix(); ///Earth matrix
+							glColor3f(0.372,0.692,0.904);
+							glRotatef(solarRot*3,0,1,0);
+							glutSolidSphere(2,8,8);  ///Earth
+					glPopMatrix();
+					glRotatef(solarAngle*2,0,1,1);
+					glTranslatef(3,0,0);
+					glPushMatrix(); ///Moon Matrix
+							glColor3f(0.764,0.804,0.808);
+							glRotatef(solarAngle*1.5,0,1,0);
+							glutSolidSphere(0.6,8,8);  ///Moon
+					glPopMatrix();
+			glPopMatrix();
+			glRotatef(solarAngle,0,1,0);
+			glTranslatef(18,0,0);
+			glPushMatrix(); ///Mars matrix
+					glColor3f(1.0,0,0);
+					glRotatef(solarRot,0,1,0);
+					glutSolidSphere(2,8,8);  ///Mars
+			glPopMatrix();
+	glPopMatrix();
+	solarAngle+=25*dt;
+	solarRot+=25*dt;
 }
 
 void RotateCamera(){

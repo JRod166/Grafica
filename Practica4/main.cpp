@@ -415,7 +415,7 @@ void Billboard()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
 	glBindTexture(GL_TEXTURE_2D, TextureTree);
-        for(int i=0;i<360;i+=360/4)
+        for(int i=0;i<360;i+=360/8)
 		{
 			glRotatef(i, 0.0, 1.0, 0.0);
 			displayArbol();
